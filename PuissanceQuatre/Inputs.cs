@@ -61,6 +61,77 @@ public class Inputs
             InputByCellPlayer(grid, player, maxInput);
     }
     
+    public static void InputByColumn(Grid grid, Player player, int maxInput)
+    {
+        if (Checks.IsPlayerBot(player))
+        {
+            InputBotPlayerMPuissance4(grid, player);
+        }
+        else
+        {
+            InputByColumnPlayer(grid, player, maxInput);
+        }
+    }
+    
+    public static void InputBotPlayerMPuissance4(Grid grid, Player player)
+    {
+        Cell randomInput = BotRandomInputGeneratorPuissance4(grid);
+        grid.SetCellOwnerIfEmpty(randomInput.GetIdCell(), player.GetId());
+    }
+    
+    public static void InputByColumnPlayer(Grid grid, Player player, int maxInput)
+    {
+        int input = GetNumericInput();
+        SetInputByColumn(grid, player, input, maxInput);
+    }
+    
+    public static void SetInputByColumn(Grid grid, Player player, int input, int maxInput)
+    {
+        if (Checks.IsInputByColumnValid(input, maxInput))
+        {
+            SetInputtedColumn(grid, player, input, maxInput);
+        }
+        else
+        {
+            Outputs.DisplayInputtedCellIsNotValid(maxInput);
+            InputByColumnPlayer(grid, player, maxInput);
+        }
+    }
+    
+    public static void SetInputtedColumn(Grid grid, Player player, int input, int maxInput)
+    {
+        for (int ligne = 0; ligne < grid.GetLineSize(); ligne++)
+        {
+            if (grid.IsCellFree(ligne, input - 1))
+            {
+                grid.SetCellOwnerIfEmpty(ligne, input - 1, player.GetId());
+                break;
+            }
+            else if (ligne == grid.GetLineSize() - 1)
+            {
+                Outputs.DisplayColumnIsFullErrorMessagePuissance4();
+                InputByColumnPlayer(grid, player, maxInput);
+            }
+        }
+    }
+    
+    public static Cell BotRandomInputGeneratorPuissance4(Grid grid)
+    {
+        Random random = new Random();
+        int randomColumn;
+        while (true)
+        {
+            randomColumn = random.Next(grid.GetColumnSize());
+            for (int ligne = 0; ligne < grid.GetLineSize(); ligne++)
+            {
+                if(grid.IsCellFree(ligne, randomColumn))
+                {
+                    return grid.GetCell(ligne, randomColumn);
+                }
+            }
+        }
+    }
+    
     public static int GetNumericInput()
     {
         var input = 0;

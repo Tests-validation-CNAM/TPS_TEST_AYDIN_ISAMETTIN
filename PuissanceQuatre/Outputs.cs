@@ -5,7 +5,8 @@ public class Outputs
     public static void DisplayGameChoices()
     {
         Console.WriteLine("1. Morpion");
-        Console.WriteLine("2. Quitter\n");
+        Console.WriteLine("2. Puissance 4");
+        Console.WriteLine("3. Quitter\n");
         Console.Write("Choix : ");
     }
 
@@ -16,11 +17,25 @@ public class Outputs
         DisplayGridMorpion(grid);
         DisplayInputMessageMorpion(currentPlayer);
     }
+    
+    public static void DisplayGamePuissance4(Grid grid, Player player1, Player player2, Player currentPlayer)
+    {
+        Console.Clear();
+        DisplayPlayersPuissance4(player1, player2);
+        DisplayGridPuissance4(grid);
+        DisplayInputMessagePuissance4(currentPlayer);
+    }
 
     public static void DisplayPlayersMorpion(Player player1, Player player2)
     {
         Console.WriteLine(GetRedText("Joueur " + player1.GetName() + " (X)") + "  -  " +
                           GetGreenText("Joueur " + player2.GetName() + " (O)") + "\n");
+    }
+    
+    
+    public static void DisplayPlayersPuissance4(Player player1, Player player2)
+    {
+        Console.WriteLine(GetRedText("Joueur " + player1.GetName()) + "  -  " + GetGreenText("Joueur " + player2.GetName()) + "\n");
     }
 
     public static void DisplayGridMorpion(Grid grid)
@@ -37,7 +52,27 @@ public class Outputs
                 Console.WriteLine("     |     |     \n");
         }
     }
+    
+    public static void DisplayGridPuissance4(Grid grid)
+    {
+        Console.WriteLine();
+        Console.WriteLine("|  1  |  2  |  3  |  4  |  5  |  6  |  7  |");
+        Console.WriteLine(" _________________________________________");
 
+        for (int i = 21; i >= 0; i -= 7)
+        {
+            Console.WriteLine("|     |     |     |     |     |     |     |");
+            Console.Write("|");
+            for (int j = 0; j < 7; j++)
+            {
+                Console.Write($"  {DisplayCellPuissance4(grid.GetCell(i + j))}  |");
+            }
+            Console.WriteLine();
+            Console.WriteLine("|_____|_____|_____|_____|_____|_____|_____|");
+        }
+        Console.WriteLine();
+    }
+    
     public static void DisplayInputMessageMorpion(Player player)
     {
         if (player.GetId() == 1)
@@ -51,6 +86,26 @@ public class Outputs
             {
                 Console.WriteLine("Tour " + GetGreenText("joueur " + player.GetName()) +
                                   ", dans quelle case voulez-vous jouer ?");
+            }
+            else
+            {
+                Console.WriteLine("Le " + GetGreenText("joueur " + player.GetName()) + " joue son tour");
+                Thread.Sleep(500);
+            }
+        }
+    }
+    
+    public static void DisplayInputMessagePuissance4(Player player)
+    {
+        if (player.GetId() == 1)
+        {
+            Console.WriteLine("Tour " + GetRedText("joueur " + player.GetName()) + ", dans quelle colonne voulez-vous jouer ? ");
+        }
+        else
+        {
+            if (player.GetIsBot() == 0)
+            {
+                Console.WriteLine("Tour " + GetGreenText("joueur " + player.GetName()) + ", dans quelle colonne voulez-vous jouer ? ");
             }
             else
             {
@@ -78,6 +133,20 @@ public class Outputs
         else if (cell.GetOwner() == 2) str = GetGreenText("O");
         return str;
     }
+    
+    public static string DisplayCellPuissance4(Cell cell)
+    {
+        string str = " ";
+        if (cell.GetOwner() == 1)
+        {
+            str = GetRedText("O");
+        }
+        else if (cell.GetOwner() == 2)
+        {
+            str = GetGreenText("O");
+        }
+        return str;
+    }
 
     public static void DisplayInputMessagePlayer1Name()
     {
@@ -99,6 +168,14 @@ public class Outputs
         DisplayGridMorpion(grid);
         DisplayWinMessage(winner);
     }
+    
+    public static void DisplayGameResultWinPuissance4(Grid grid, Player player1, Player player2, Player winner)
+    {
+        Console.Clear();
+        DisplayPlayersPuissance4(player1, player2);
+        DisplayGridPuissance4(grid);
+        DisplayWinMessage(winner);
+    }
 
     public static void DisplayWinMessage(Player winner)
     {
@@ -117,6 +194,14 @@ public class Outputs
         Console.Clear();
         DisplayPlayersMorpion(player1, player2);
         DisplayGridMorpion(grid);
+        DisplayEqualityMessage();
+    }
+    
+    public static void DisplayGameResultEqualityPuissance4(Grid grid, Player player1, Player player2)
+    {
+        Console.Clear();
+        DisplayPlayersPuissance4(player1, player2);
+        DisplayGridPuissance4(grid);
         DisplayEqualityMessage();
     }
 
@@ -147,5 +232,10 @@ public class Outputs
     {
         Console.Clear();
         Console.WriteLine("Veuillez saisir un choix valide");
+    }
+    
+    public static void DisplayColumnIsFullErrorMessagePuissance4()
+    {
+        Console.WriteLine("La colonne est pleine, veuillez choisir une autre colonne");
     }
 }

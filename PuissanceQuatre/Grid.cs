@@ -58,14 +58,34 @@ public class Grid
 
         return false;
     }
+    
+    public bool SetCellOwnerIfEmpty(int line, int column, int value)
+    {
+        if (IsCellFree(line, column))
+        {
+            GetCell(line, column).SetOwner(value);
+            return true;
+        }
+        return false;
+    }
 
     public bool IsCellFree(int idCell)
     {
         return GetCellOwner(idCell) == 0;
     }
+    
+    public bool IsCellFree(int line, int column)
+    {
+        return GetCellOwner(line, column) == 0;
+    }
 
     public int GetCellOwner(int idCell)
     {
         return GetCell(idCell).GetOwner();
+    }
+    
+    public int GetCellOwner(int line, int column)
+    {
+        return GetCell(line, column).GetOwner();
     }
 }

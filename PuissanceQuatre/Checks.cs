@@ -11,6 +11,11 @@ public class Checks
     {
         return input <= maxInput && input > 0;
     }
+    
+    public static bool IsInputByColumnValid(int input, int maxInput)
+    {
+        return input >= 1 && input <= maxInput;
+    }
 
     public static bool IsInputValidGameModes(int input)
     {

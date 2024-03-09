@@ -44,33 +44,6 @@ public class Morpion
             Outputs.DisplayGameResultWinMorpion(GetGrid(), GetPlayer1(), GetPlayer2(), potentialWinner);
         else if (CheckEquality()) Outputs.DisplayGameResultEqualityMorpion(GetGrid(), GetPlayer1(), GetPlayer2());
     }
-    
-    public void AskGameMode()
-    {
-        var input = Inputs.InputGameMode();
-        if (input == 1)
-        {
-            SetGameMode(0);
-        }
-        else if (input == 2)
-        {
-            SetGameMode(1);
-            player2.SetName("IA");
-            player2.SetIsBot(1);
-        }
-    }
-
-    public Player RoundGenerator(int round)
-    {
-        if (round % 2 == 0)
-            return player1;
-        return player2;
-    }
-
-    public void SetGameMode(int newSetting)
-    {
-        gameMode = newSetting;
-    }
 
     public bool CheckEquality()
     {
@@ -142,5 +115,32 @@ public class Morpion
     public Player GetPlayer2()
     {
         return player2;
+    }
+    
+    public void AskGameMode()
+    {
+        var input = Inputs.InputGameMode();
+        if (input == 1)
+        {
+            SetGameMode(0);
+        }
+        else if (input == 2)
+        {
+            SetGameMode(1);
+            player2.SetName("IA");
+            player2.SetIsBot(1);
+        }
+    }
+
+    public Player RoundGenerator(int round)
+    {
+        if (round % 2 == 0)
+            return player1;
+        return player2;
+    }
+
+    public void SetGameMode(int newSetting)
+    {
+        gameMode = newSetting;
     }
 }

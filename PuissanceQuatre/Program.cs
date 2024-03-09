@@ -13,6 +13,11 @@ public class Program
         }
         else if (choice == "2")
         {
+            var game = new Puissance4();
+            game.StartGame();
+        }
+        else if (choice == "3")
+        {
             Console.WriteLine("A bientot !");
             Environment.Exit(0);
         }
