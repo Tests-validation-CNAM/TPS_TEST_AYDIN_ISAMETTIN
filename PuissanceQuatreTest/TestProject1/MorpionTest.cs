@@ -1,97 +1,92 @@
-using Xunit;
 using MorpionApp;
 
-namespace MorpionTest
+namespace MorpionTest;
+
+public class MorpionTests
 {
-    public class MorpionTests
+    [Fact]
+    public void TestInitialisationGrille()
     {
-        [Fact]
-        public void TestInitialisationGrille()
+        // Arrange
+        var morpion = new Morpion();
+
+        // Act
+        char[,] grille = morpion.grille;
+
+        // Assert
+        Assert.NotNull(grille);
+        Assert.Equal(3, grille.GetLength(0)); // Vérifie les dimensions de la grille
+        Assert.Equal(3, grille.GetLength(1));
+        foreach (var cellule in grille) Assert.Equal(' ', cellule); // Vérifie que chaque cellule est vide
+    }
+
+    [Fact]
+    public void TestTourDuJoueurParDefaut()
+    {
+        // Arrange
+        var morpion = new Morpion();
+
+        // Act
+        bool tourDuJoueur = morpion.tourDuJoueur;
+
+        // Assert
+        Assert.True(tourDuJoueur); // Vérifie que c'est le tour du joueur 1 par défaut
+    }
+
+    [Fact]
+    public void TestVerifVictoireJoueur1()
+    {
+        // Arrange
+        var morpion = new Morpion();
+        morpion.grille = new char[3, 3]
         {
-            // Arrange
-            Morpion morpion = new Morpion();
+            { 'X', 'X', 'X' },
+            { ' ', ' ', ' ' },
+            { ' ', ' ', ' ' }
+        };
 
-            // Act
-            char[,] grille = morpion.grille;
+        // Act
+        bool victoire = morpion.verifVictoire('X');
 
-            // Assert
-            Assert.NotNull(grille);
-            Assert.Equal(3, grille.GetLength(0)); // Vérifie les dimensions de la grille
-            Assert.Equal(3, grille.GetLength(1));
-            foreach (var cellule in grille)
-            {
-                Assert.Equal(' ', cellule); // Vérifie que chaque cellule est vide
-            }
-        }
-        
-        [Fact]
-        public void TestTourDuJoueurParDefaut()
+        // Assert
+        Assert.True(victoire); // Vérifie qu'il y a une victoire pour le joueur X
+    }
+
+    [Fact]
+    public void TestVerifVictoireJoueur2()
+    {
+        // Arrange
+        var morpion = new Morpion();
+        morpion.grille = new char[3, 3]
         {
-            // Arrange
-            Morpion morpion = new Morpion();
+            { 'O', 'O', 'O' },
+            { ' ', ' ', ' ' },
+            { ' ', ' ', ' ' }
+        };
 
-            // Act
-            bool tourDuJoueur = morpion.tourDuJoueur;
+        // Act
+        bool victoire = morpion.verifVictoire('O');
 
-            // Assert
-            Assert.True(tourDuJoueur); // Vérifie que c'est le tour du joueur 1 par défaut
-        }
-        
-        [Fact]
-        public void TestVerifVictoireJoueur1()
+        // Assert
+        Assert.True(victoire); // Vérifie qu'il y a une victoire pour le joueur O
+    }
+
+    [Fact]
+    public void TestVerifEgalite()
+    {
+        // Arrange
+        var morpion = new Morpion();
+        morpion.grille = new char[3, 3]
         {
-            // Arrange
-            Morpion morpion = new Morpion();
-            morpion.grille = new char[3, 3]
-            {
-                { 'X', 'X', 'X'},
-                { ' ', ' ', ' '},
-                { ' ', ' ', ' '},
-            };
+            { 'X', 'O', 'X' },
+            { 'X', 'X', 'O' },
+            { 'O', 'X', 'O' }
+        };
 
-            // Act
-            bool victoire = morpion.verifVictoire('X');
+        // Act
+        bool egalite = morpion.verifEgalite();
 
-            // Assert
-            Assert.True(victoire); // Vérifie qu'il y a une victoire pour le joueur X
-        }
-
-        [Fact]
-        public void TestVerifVictoireJoueur2()
-        {
-            // Arrange
-            Morpion morpion = new Morpion();
-            morpion.grille = new char[3, 3]
-            {
-                { 'O', 'O', 'O'},
-                { ' ', ' ', ' '},
-                { ' ', ' ', ' '},
-            };
-
-            // Act
-            bool victoire = morpion.verifVictoire('O');
-
-            // Assert
-            Assert.True(victoire); // Vérifie qu'il y a une victoire pour le joueur O
-        }
-
-        [Fact]
-        public void TestVerifEgalite()
-        {
-            // Arrange
-            Morpion morpion = new Morpion();
-            morpion.grille = new char[3, 3]
-            {
-                { 'X', 'O', 'X'},
-                { 'X', 'X', 'O'},
-                { 'O', 'X', 'O'},
-            };
-
-            // Act
-            bool egalite = morpion.verifEgalite();
-
-            // Assert
-            Assert.True(egalite); // Vérifie qu'il y a une égalité
-        }
+        // Assert
+        Assert.True(egalite); // Vérifie qu'il y a une égalité
     }
 }
