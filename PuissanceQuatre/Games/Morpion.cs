@@ -1,4 +1,7 @@
-﻿namespace MorpionApp;
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+
+namespace MorpionApp;
 
 public class Morpion : Game
 {
@@ -20,6 +23,7 @@ public class Morpion : Game
             Outputs.DisplayGameMorpion(GetGrid(), GetPlayer1(), GetPlayer2(), currentPlayer);
             Inputs.InputByCell(grid, currentPlayer, grid.GetSize());
             round++;
+            this.SaveGameToFile("C:/Users/Isamet/Desktop/saved_game.json");
         }
         return currentPlayer;
     }
@@ -92,5 +96,24 @@ public class Morpion : Game
         {
             Outputs.DisplayGameResultEqualityMorpion(GetGrid(), GetPlayer1(), GetPlayer2());
         }
+    } 
+    
+    // Serialize the game to a file json
+    public void SaveGameToFile(string path)
+    {
+        var jeu = new SerializableGame
+        {
+            gameMode = this.gameMode,
+            grid = new SerializableGrid(),
+            player1 = this.player1,
+            player2 = this.player2
+        };
+        
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
+        var jsonString = JsonSerializer.Serialize(jeu, options);
+        System.IO.File.WriteAllText(path, jsonString);
     }
 }
