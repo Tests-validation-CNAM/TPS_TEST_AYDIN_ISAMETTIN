@@ -11,12 +11,12 @@ public class Morpion : Game
     
     public override Player PlayRound()
     {
-        var round = 0;
-        var currentPlayer = player1;
-
+        int round = 0;
+        Player currentPlayer = GetCurrentPlayer(round);
+  
         while (!CheckWin(currentPlayer) && !CheckEquality())
         {
-            currentPlayer = RoundGenerator(round);
+            currentPlayer = GetCurrentPlayer(round);
             Outputs.DisplayGameMorpion(GetGrid(), GetPlayer1(), GetPlayer2(), currentPlayer);
             Inputs.InputByCell(grid, currentPlayer, grid.GetSize());
             round++;
@@ -81,7 +81,7 @@ public class Morpion : Game
         return countAsc == 3 || countDesc == 3;
     }
     
-    public override  void EndGame(Player potentialWinner)
+    public override void EndGame(Player potentialWinner)
     {
         if (CheckWin(potentialWinner))
         {

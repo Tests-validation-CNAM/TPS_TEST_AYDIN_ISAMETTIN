@@ -14,9 +14,9 @@ public class Puissance4 : Game
         int round = 0;
         Player currentPlayer = player1;
 
-        while(!CheckWin(currentPlayer) && !CheckEquality())
+        while (!CheckWin(currentPlayer) && !CheckEquality())
         {
-            currentPlayer = RoundGenerator(round);
+            currentPlayer = GetCurrentPlayer(round);
             Outputs.DisplayGamePuissance4(GetGrid(), GetPlayer1(), GetPlayer2(), currentPlayer);
             Inputs.InputByColumn(grid, currentPlayer, grid.GetColumnSize());
             round++;

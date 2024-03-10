@@ -35,7 +35,7 @@ public abstract class Game
         gameMode = newSetting;
     }
     
-    public Player RoundGenerator(int round)
+    public Player GetCurrentPlayer(int round)
     {
         if (round % 2 == 0)
             return player1;
