@@ -1,12 +1,7 @@
 ﻿namespace MorpionApp;
 
-public class Puissance4
+public class Puissance4 : Game
 {
-    private int gameMode;
-    private Grid grid;
-    private Player player1;
-    private Player player2;
-    
     public Puissance4()
     {
         grid = new Grid(4, 7);
@@ -14,7 +9,7 @@ public class Puissance4
         player2 = new Player(2, "B");
     }
     
-    public Player PlayRound()
+    public override Player PlayRound()
     {
         int round = 0;
         Player currentPlayer = player1;
@@ -28,28 +23,8 @@ public class Puissance4
         }
         return currentPlayer;
     }
-    
-    public void StartGame()
-    {
-        AskGameMode(); // demande le type de jeu
-        Inputs.InputPlayersNames(player1, player2);
-        Player potentialWinner = PlayRound(); // fait jouer les joueurs jusqu'a avoir un gagnant ou égalité
-        EndGame(potentialWinner);
-    }
-    
-    public void EndGame(Player PotentialWinner)
-    {
-        if (CheckWin(PotentialWinner))
-        {
-            Outputs.DisplayGameResultWinPuissance4(GetGrid(), GetPlayer1(), GetPlayer2(), PotentialWinner);
-        }
-        else if (CheckEquality())
-        {
-            Outputs.DisplayGameResultEqualityPuissance4(GetGrid(), GetPlayer1(), GetPlayer2());
-        }
-    }
 
-    public bool CheckEquality()
+    public override bool CheckEquality()
     {
         for (int cellPosition = 0; cellPosition < grid.GetSize(); cellPosition++)
         {
@@ -61,7 +36,7 @@ public class Puissance4
         return true;
     }
     
-    public bool CheckWin(Player player)
+    public override bool CheckWin(Player player)
     {
         return CheckWinByLine(player) || CheckWinByColumn(player) || CheckWinByDiagonal(player);
     }
@@ -157,45 +132,15 @@ public class Puissance4
         return false;
     }
     
-    public void AskGameMode()
+    public override void EndGame(Player PotentialWinner)
     {
-        var input = Inputs.InputGameMode();
-        if (input == 1)
+        if (CheckWin(PotentialWinner))
         {
-            SetGameMode(0);
+            Outputs.DisplayGameResultWinPuissance4(GetGrid(), GetPlayer1(), GetPlayer2(), PotentialWinner);
         }
-        else if (input == 2)
+        else if (CheckEquality())
         {
-            SetGameMode(1);
-            player2.SetName("IA");
-            player2.SetIsBot(1);
+            Outputs.DisplayGameResultEqualityPuissance4(GetGrid(), GetPlayer1(), GetPlayer2());
         }
-    }
-
-    public Player RoundGenerator(int round)
-    {
-        if (round % 2 == 0)
-            return player1;
-        return player2;
-    }
-
-    public void SetGameMode(int newSetting)
-    {
-        gameMode = newSetting;
-    }
-    
-    public Grid GetGrid()
-    {
-        return grid;
-    }
-
-    public Player GetPlayer1()
-    {
-        return player1;
-    }
-
-    public Player GetPlayer2()
-    {
-        return player2;
     }
 }
