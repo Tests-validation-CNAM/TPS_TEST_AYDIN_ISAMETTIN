@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MorpionApp", "MorpionApp.csproj", "{A0418F92-68EA-4091-BC49-D5F9652BBFA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "..\PuissanceQuatreTest\TestProject1\TestProject1.csproj", "{D007735E-45C0-447E-AE14-C2B2396F3171}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MorpionTest", "..\PuissanceQuatreTest\MorpionTest\MorpionTest.csproj", "{D007735E-45C0-447E-AE14-C2B2396F3171}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

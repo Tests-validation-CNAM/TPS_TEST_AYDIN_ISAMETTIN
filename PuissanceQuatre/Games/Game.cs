@@ -3,7 +3,7 @@
 public abstract class Game
 {
     protected int gameMode;
-    protected Grid grid;
+    public Grid grid;
     protected Player player1;
     protected Player player2;
     
