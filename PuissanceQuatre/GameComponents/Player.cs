@@ -12,6 +12,13 @@ public class Player
         this.name = name;
         isBot = 0;
     }
+    
+    public Player(int id, string name, int isBot)
+    {
+        this.id = id;
+        this.name = name;
+        this.isBot = isBot;
+    }
 
     public int GetId()
     {
