@@ -75,14 +75,17 @@ namespace MorpionApp.Tests
         [Fact]
         public void CheckEquality_SomeCellsOccupied_ReturnsFalse()
         {
+            // Arrange
             var morpion = new Morpion();
             for (int i = 0; i < morpion.grid.GetSize() - 1; i++)
             {
                 morpion.grid.GetCell(i).SetOwner(1);
             }
 
+            // Act
             bool result = morpion.CheckEquality();
 
+            // Assert
             Assert.False(result);
         }
 
@@ -102,95 +105,116 @@ namespace MorpionApp.Tests
         [Fact]
         public void CheckEquality_AllCellsOccupiedByDifferentPlayers_ReturnsTrue()
         {
+            // Arrange
             var morpion = new Morpion();
             for (int i = 0; i < morpion.grid.GetSize(); i++)
             {
                 morpion.grid.GetCell(i).SetOwner(i % 2 + 1);
             }
 
+            // Act
             bool result = morpion.CheckEquality();
 
+            // Assert
             Assert.True(result);
         }
 
         [Fact]
         public void CheckWinByLine_PlayerDoesNotWin_ReturnsFalse()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(1, "A");
             morpion.grid.GetCell(0, 0).SetOwner(player.GetId());
             morpion.grid.GetCell(0, 1).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByLine(player);
 
+            // Assert
             Assert.False(result);
         }
 
         [Fact]
         public void CheckWinByColumn_PlayerDoesNotWin_ReturnsFalse()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(2, "B");
             morpion.grid.GetCell(0, 0).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 0).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByColumn(player);
 
+            // Assert
             Assert.False(result);
         }
 
         [Fact]
         public void CheckWinByDiagonal_PlayerDoesNotWin_ReturnsFalse()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(1, "A");
             morpion.grid.GetCell(0, 0).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 1).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByDiagonal(player);
 
+            // Assert
             Assert.False(result);
         }
         
         [Fact]
         public void CheckWinByLine_PlayerWinsWithDifferentLine_ReturnsTrue()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(1, "A");
             morpion.grid.GetCell(1, 0).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 1).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 2).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByLine(player);
 
+            // Assert
             Assert.True(result);
         }
 
         [Fact]
         public void CheckWinByColumn_PlayerWinsWithDifferentColumn_ReturnsTrue()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(2, "B");
             morpion.grid.GetCell(0, 1).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 1).SetOwner(player.GetId());
             morpion.grid.GetCell(2, 1).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByColumn(player);
 
+            // Assert
             Assert.True(result);
         }
 
         [Fact]
         public void CheckWinByDiagonal_PlayerWinsWithDifferentDiagonal_ReturnsTrue()
         {
+            // Arrange
             var morpion = new Morpion();
             var player = new Player(1, "A");
             morpion.grid.GetCell(0, 2).SetOwner(player.GetId());
             morpion.grid.GetCell(1, 1).SetOwner(player.GetId());
             morpion.grid.GetCell(2, 0).SetOwner(player.GetId());
 
+            // Act
             bool result = morpion.CheckWinByDiagonal(player);
 
+            // Assert
             Assert.True(result);
         }
     }
