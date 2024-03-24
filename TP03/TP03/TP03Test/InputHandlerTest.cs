@@ -166,6 +166,6 @@ public class InputHandlerTest
 
         // Assert
         var exception = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("Le taux d'intérêt annuel doit être compris entre 0 et 100%", exception.Message);
+        Assert.Equal("Le taux d'intérêt annuel doit être compris entre 0% et 100%", exception.Message);
     }
 }

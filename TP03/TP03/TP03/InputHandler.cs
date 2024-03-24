@@ -44,7 +44,7 @@ public class InputHandler
 
         if (taux <= TAUX_MIN || taux > TAUX_MAX)
         {
-            throw new ArgumentException("Le taux d'intérêt annuel doit être compris entre 0 et 100%");
+            throw new ArgumentException("Le taux d'intérêt annuel doit être compris entre " + TAUX_MIN + "% et " + TAUX_MAX + "%");
         }
 
         return taux;
