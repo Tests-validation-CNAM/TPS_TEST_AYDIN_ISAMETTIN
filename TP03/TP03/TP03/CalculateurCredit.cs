@@ -14,7 +14,14 @@ public class CalculateurCredit
         double tauxMensuel = Credit.Taux / 100 / 12;
         int duree = Credit.Duree;
         double mensualite = Credit.Montant * (tauxMensuel / (1 - Math.Pow(1 + tauxMensuel, -duree)));
+        return mensualite;
+    }
 
-        return Math.Round(mensualite, 2);
+    public double CalculCoutTotal()
+    {
+        double mensualite = CalculMensualite();
+        double coutTotal = mensualite * Credit.Duree - Credit.Montant;
+
+        return coutTotal;
     }
 }

@@ -36,4 +36,38 @@ public class CalculateurCreditTest
         Assert.NotEqual(result, mensualite, 2);
     }
 
+    [Theory]
+    [InlineData(300000, 300, 4.15, 182538.85)]
+    [InlineData(50000, 300, 4.15, 30423.14)]
+    [InlineData(100000, 300, 4.15, 60846.28)]
+    public void TestCalculateurCredit_ValidCalculCoutTotal(double montant, int duree, double taux, double result)
+    {
+        // Arrange
+        Credit credit= new Credit(montant, duree, taux);
+        CalculateurCredit calculator = new CalculateurCredit(credit);
+
+        // Act
+        double coutTotal = calculator.CalculCoutTotal();
+
+        // Assert
+        Assert.Equal(result, coutTotal, 2);
+    }
+
+    [Theory]
+    [InlineData(300000, 300, 4.15, 182538.84)]
+    [InlineData(50000, 300, 4.15, 30423.13)]
+    [InlineData(100000, 300, 4.15, 60846.27)]
+    public void TestCalculateurCredit_InvalidCalculCoutTotal(double montant, int duree, double taux, double result)
+    {
+        // Arrange
+        Credit credit= new Credit(montant, duree, taux);
+        CalculateurCredit calculator = new CalculateurCredit(credit);
+
+        // Act
+        double coutTotal = calculator.CalculCoutTotal();
+
+        // Assert
+        Assert.NotEqual(result, coutTotal, 2);
+    }
+
 }
