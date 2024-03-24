@@ -12,6 +12,6 @@ public class Credit
         Montant = montant;
         Duree = duree;
         Taux = taux;
-        Mensualites = new List<Mensualite>();
+        Mensualites = CalculateurCredit.CalculMensualites(this);
     }
 }

@@ -3,13 +3,13 @@
 public class Mensualite
 {
     public int Numero { get; private set; }
-    public double MontantPaye { get; private set; }
-    public double ResteAPayer { get; private set; }
+    public double CapitalRembourse { get; private set; }
+    public double CapitalRestantDu { get; private set; }
 
     public Mensualite(int numero, double montantPaye, double resteAPayer)
     {
         this.Numero = numero;
-        this.MontantPaye = montantPaye;
-        this.ResteAPayer = resteAPayer;
+        this.CapitalRembourse = montantPaye;
+        this.CapitalRestantDu = resteAPayer;
     }
 }

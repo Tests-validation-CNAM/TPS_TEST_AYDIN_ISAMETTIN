@@ -9,10 +9,17 @@ public class CreditTest
     public void TestCredit(double montant, int duree, double taux)
     {
         Credit credit = new Credit(montant, duree, taux);
+        List<Mensualite> mensualites = CalculateurCredit.CalculMensualites(credit);
 
         Assert.Equal(montant, credit.Montant);
         Assert.Equal(duree, credit.Duree);
         Assert.Equal(taux, credit.Taux);
-        Assert.Empty(credit.Mensualites);
+        Assert.Equal(mensualites.Count, credit.Mensualites.Count);
+        for (int i = 0; i < mensualites.Count; i++)
+        {
+            Assert.Equal(mensualites[i].Numero, credit.Mensualites[i].Numero);
+            Assert.Equal(mensualites[i].CapitalRembourse, credit.Mensualites[i].CapitalRembourse);
+            Assert.Equal(mensualites[i].CapitalRestantDu, credit.Mensualites[i].CapitalRestantDu);
+        }
     }
 }

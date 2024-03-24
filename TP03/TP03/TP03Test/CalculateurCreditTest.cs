@@ -10,10 +10,9 @@ public class CalculateurCreditTest
     {
         // Arrange
         Credit credit= new Credit(montant, duree, taux);
-        CalculateurCredit calculator = new CalculateurCredit(credit);
 
         // Act
-        double mensualite = calculator.CalculMensualite();
+        double mensualite = CalculateurCredit.CalculMensualite(credit);
 
         // Assert
         Assert.Equal(result, mensualite, 2);
@@ -27,10 +26,9 @@ public class CalculateurCreditTest
     {
         // Arrange
         Credit credit= new Credit(montant, duree, taux);
-        CalculateurCredit calculator = new CalculateurCredit(credit);
 
         // Act
-        double mensualite = calculator.CalculMensualite();
+        double mensualite = CalculateurCredit.CalculMensualite(credit);
 
         // Assert
         Assert.NotEqual(result, mensualite, 2);
@@ -44,10 +42,9 @@ public class CalculateurCreditTest
     {
         // Arrange
         Credit credit= new Credit(montant, duree, taux);
-        CalculateurCredit calculator = new CalculateurCredit(credit);
 
         // Act
-        double coutTotal = calculator.CalculCoutTotal();
+        double coutTotal = CalculateurCredit.CalculCoutTotal(credit);
 
         // Assert
         Assert.Equal(result, coutTotal, 2);
@@ -61,10 +58,9 @@ public class CalculateurCreditTest
     {
         // Arrange
         Credit credit= new Credit(montant, duree, taux);
-        CalculateurCredit calculator = new CalculateurCredit(credit);
 
         // Act
-        double coutTotal = calculator.CalculCoutTotal();
+        double coutTotal = CalculateurCredit.CalculCoutTotal(credit);
 
         // Assert
         Assert.NotEqual(result, coutTotal, 2);

@@ -11,7 +11,7 @@ public class MensualiteTest
         Mensualite mensualite = new Mensualite(numero, montantPaye, resteAPayer);
 
         Assert.Equal(numero, mensualite.Numero);
-        Assert.Equal(montantPaye, mensualite.MontantPaye);
-        Assert.Equal(resteAPayer, mensualite.ResteAPayer);
+        Assert.Equal(montantPaye, mensualite.CapitalRembourse);
+        Assert.Equal(resteAPayer, mensualite.CapitalRestantDu);
     }
 }
