@@ -2,7 +2,24 @@ namespace TP03;
 
 public class InputHandlerTest
 {
-    // inline data
+    [Theory]
+    [InlineData(null, null, null)]
+    [InlineData(null, "240", "3,5")]
+    [InlineData("300000", null, "3,5")]
+    [InlineData("300000", "240", null)]
+    public void TestInputHandler_InvalidInput(string montant, string duree, string taux)
+    {
+        // Arrange
+        string[] args = { montant, duree, taux };
+
+        // Act
+        Action action = () => new InputHandler(args);
+
+        // Assert
+        var exception = Assert.Throws<ArgumentException>(action);
+        Assert.Equal("Expected 3 arguments: montant, duree, taux", exception.Message);
+    }
+
     [Theory]
     [InlineData("300000", 300000)]
     [InlineData("50000", 50000)]
@@ -10,7 +27,7 @@ public class InputHandlerTest
     public void TestInputMontant_ValidMontant(string input, double result)
     {
         // Arrange
-        string[] args = { input };
+        string[] args = {input, "108", "4.1" };
         InputHandler inputHandler = new InputHandler(args);
 
         // Act
@@ -24,7 +41,7 @@ public class InputHandlerTest
     public void TestInputMontant_InvalidStringFormat()
     {
         // Arrange
-        string[] args = { "InvalidInput" };
+        string[] args = {"InvalidInput", "108", "4.1" };
         InputHandler inputHandler = new InputHandler(args);
 
         // Act
@@ -39,7 +56,7 @@ public class InputHandlerTest
     public void TestInputMontant_InvalidMontantMin()
     {
         // Arrange
-        string[] args = { "49000" };
+        string[] args = { "49000", "108", "4.1" };
         InputHandler inputHandler = new InputHandler(args);
 
         // Act
@@ -54,7 +71,7 @@ public class InputHandlerTest
     public void TestInputMontant_InvalidMontantNegatif()
     {
         // Arrange
-        string[] args = { "-50000" };
+        string[] args = { "-50000", "108", "4.1" };
         InputHandler inputHandler = new InputHandler(args);
 
         // Act
@@ -66,25 +83,10 @@ public class InputHandlerTest
     }
 
     [Fact]
-    public void TestInputMontant_InvalidMontantNull()
-    {
-        // Arrange
-        string[] args = { null };
-        InputHandler inputHandler = new InputHandler(args);
-
-        // Act
-        Action action = () => inputHandler.InputMontant();
-
-        // Assert
-        var exception = Assert.Throws<ArgumentNullException>(action);
-        Assert.Equal("Value cannot be null.", exception.Message);
-    }
-
-    [Fact]
     public void TestInputDuree_ValidDuree()
     {
         // Arrange
-        string[] args = { "50000", "108" };
+        string[] args = { "50000", "108", "4.1" };
         InputHandler InputHandler = new InputHandler(args);
 
         // Act
@@ -98,7 +100,7 @@ public class InputHandlerTest
     public void TestInputDuree_InvalidStringFormat()
     {
         // Arrange
-        string[] args = { "50000", "InvalidInput" };
+        string[] args = { "50000", "InvalidInput", "4.1"};
         InputHandler InputHandler = new InputHandler(args);
 
         // Act
@@ -113,7 +115,7 @@ public class InputHandlerTest
     public void TestInputDuree_InvalidDuree()
     {
         // Arrange
-        string[] args = { "50000", "107" };
+        string[] args = { "50000", "107", "4.1" };
         InputHandler InputHandler = new InputHandler(args);
 
         // Act
@@ -123,22 +125,6 @@ public class InputHandlerTest
         var exception = Assert.Throws<ArgumentException>(action);
         Assert.Equal("La durée doit être comprise entre 108 et 300 mois", exception.Message);
     }
-
-    [Fact]
-    public void TestInputDuree_InvalidDureeNull()
-    {
-        // Arrange
-        string[] args = { "50000", null };
-        InputHandler InputHandler = new InputHandler(args);
-
-        // Act
-        Action action = () => InputHandler.InputDuree();
-
-        // Assert
-        var exception = Assert.Throws<ArgumentNullException>(action);
-        Assert.Equal("Value cannot be null.", exception.Message);
-    }
-
 
     [Fact]
     public void TestInputTaux_ValidTaux()

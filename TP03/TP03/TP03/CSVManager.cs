@@ -19,5 +19,6 @@ public static class CSVManager
                 writer.WriteLine(mensualite.Numero + ";" + Math.Round(mensualite.CapitalRembourse, 2) + ";" + Math.Round(mensualite.CapitalRestantDu, 2)) ;  
             }
         }
+        Console.WriteLine("Ficher CSV créé avec succès au chemin " +  Path.GetFullPath(path));
     }
 }

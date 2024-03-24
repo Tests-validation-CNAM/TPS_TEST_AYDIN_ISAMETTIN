@@ -11,6 +11,19 @@ public class InputHandler
 
     public InputHandler(string[] args)
     {
+        if (args == null || args.Length != 3)
+        {
+            throw new ArgumentException("Expected 3 arguments: montant, duree, taux");
+        }
+
+        foreach (string arg in args)
+        {
+            if (string.IsNullOrEmpty(arg))
+            {
+                throw new ArgumentException("Expected 3 arguments: montant, duree, taux");
+            }
+        }
+
         this.args = args;
     }
 
