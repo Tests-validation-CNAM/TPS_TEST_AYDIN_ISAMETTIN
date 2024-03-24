@@ -66,4 +66,40 @@ public class CalculateurCreditTest
         Assert.NotEqual(result, coutTotal, 2);
     }
 
+    [Theory]
+    [InlineData(300000, 300, 4.15, 0, 300000)]
+    [InlineData(50000, 300, 4.15, 0, 50000)]
+    [InlineData(100000, 300, 4.15, 0, 100000)]
+    public void TestCalculateurCredit_ValidCalculMensualites(double montant, int duree, double taux, double result, double result2)
+    {
+        // Arrange
+        Credit credit= new Credit(montant, duree, taux);
+
+        // Act
+        List<Mensualite> mensualites = CalculateurCredit.CalculMensualites(credit);
+
+        // Assert
+        Assert.Equal(result, mensualites.Last().CapitalRestantDu, 2);
+        Assert.Equal(result2, mensualites.Last().CapitalRembourse, 2);
+    }
+
+    [Theory]
+
+    [InlineData(300000, 300, 4.15, 1, 300001)]
+    [InlineData(50000, 300, 4.15, 1, 50001)]
+    [InlineData(100000, 300, 4.15, 1, 100001)]
+
+    public void TestCalculateurCredit_InvalidCalculMensualites(double montant, int duree, double taux, double result, double result2)
+    {
+        // Arrange
+        Credit credit= new Credit(montant, duree, taux);
+
+        // Act
+        List<Mensualite> mensualites = CalculateurCredit.CalculMensualites(credit);
+
+        // Assert
+        Assert.NotEqual(result, mensualites.Last().CapitalRestantDu, 2);
+        Assert.NotEqual(result2, mensualites.Last().CapitalRembourse, 2);
+    }
+
 }
